@@ -81,19 +81,38 @@ void placeVertex1(){
 
   Vertex v1;
   Triangle tr1;
-  v1.x = -9.;  v1.y = 9.; v1.z = -1.; Vertices.push_back(v1);   
-  v1.x = +9.;  v1.y = 9.; v1.z = +1.; Vertices.push_back(v1);   
-  v1.x =   0.;  v1.y =-9.; v1.z = -2.; Vertices.push_back(v1);  
+  v1.x = -19.;  v1.y = 19.; v1.z = -1.; Vertices.push_back(v1);   
+  v1.x = +19.;  v1.y = 19.; v1.z = +1.; Vertices.push_back(v1);   
+  v1.x =   0.;  v1.y =-19.; v1.z = -2.; Vertices.push_back(v1);  
   tr1.ind1 = 0;   tr1.ind2 = 1;   tr1.ind3 = 2;
   Triangles.push_back(tr1);
 
-  v1.x = 3.; v1.y = 2.; v1.z = 2.; Vertices.push_back(v1);
-  v1.x = -1.; v1.y = -1.; v1.z = -1.; Vertices.push_back(v1);
+  // v1.x = 3.; v1.y = 2.; v1.z = 2.; Vertices.push_back(v1);
+  // v1.x = -1.; v1.y = -1.; v1.z = -1.; Vertices.push_back(v1);
   // v1.x = 1.; v1.y = 4.; Vertices.push_back(v1);
   // v1.x = -5.; v1.y = 5.; Vertices.push_back(v1);
   // v1.x = 1.; v1.y = -5.; Vertices.push_back(v1);
   // v1.x = 1.; v1.y = 7.; Vertices.push_back(v1);
   // v1.x = 5.; v1.y = 7.; Vertices.push_back(v1);
+
+
+  double rad = 8.;
+  double x,y,z;
+  for(int i=0;i<50;i++){
+    double r = rad+1;
+    while(r>rad){
+      x = 2.*drand48()-1.;
+      y = 2.*drand48()-1.;
+      z = 2.*drand48()-1.;
+      r = sqrt(x*x+y*y+z*z);
+    }
+    v1.x = x/r*rad;
+    v1.y = y/r*rad;
+    v1.z = z/r*rad;
+
+    printf("%lf %lf %lf\n",x/r*rad,y/r*rad,z/r*rad);
+    Vertices.push_back(v1);
+  }
 }
 
 class Delaunay2d{
@@ -117,7 +136,7 @@ class Circle Delaunay2d::getCircumScribedCircle(class Triangle _t){
   double v12midy = 0.5*(v1.y+v2.y);
   double v13midy = 0.5*(v1.y+v3.y);
   double v12midz = 0.5*(v1.z+v2.z);
-  double v13midz = 0.5*(v1.z+v3.z);
+  // double v13midz = 0.5*(v1.z+v3.z);
 
   double a12x = v2.x - v1.x;
   double a12y = v2.y - v1.y;
@@ -125,13 +144,13 @@ class Circle Delaunay2d::getCircumScribedCircle(class Triangle _t){
   double a13x = v3.x - v1.x;
   double a13y = v3.y - v1.y;
   double a13z = v3.z - v1.z;
-  double a23x = v3.x - v2.x;
-  double a23y = v3.y - v2.y;
-  double a23z = v3.z - v2.z;
+  // double a23x = v3.x - v2.x;
+  // double a23y = v3.y - v2.y;
+  // double a23z = v3.z - v2.z;
 
   double a12 = sqrt(a12x*a12x+a12y*a12y+a12z*a12z);
   double a13 = sqrt(a13x*a13x+a13y*a13y+a13z*a13z);
-  double a23 = sqrt(a23x*a23x+a23y*a23y+a23z*a23z);
+  // double a23 = sqrt(a23x*a23x+a23y*a23y+a23z*a23z);
 
   double a12nx = a12x/a12;
   double a12ny = a12y/a12;
@@ -141,9 +160,9 @@ class Circle Delaunay2d::getCircumScribedCircle(class Triangle _t){
   double a13ny = a13y/a13;
   double a13nz = a13z/a13;
 
-  double a23nx = a23x/a23;
-  double a23ny = a23y/a23;
-  double a23nz = a23z/a23;
+  // double a23nx = a23x/a23;
+  // double a23ny = a23y/a23;
+  // double a23nz = a23z/a23;
 
   double normal3on12x = a13x - (a13x*a12nx+a13y*a12ny+a13z*a12nz)*a12nx;
   double normal3on12y = a13y - (a13x*a12nx+a13y*a12ny+a13z*a12nz)*a12ny;
@@ -159,24 +178,24 @@ class Circle Delaunay2d::getCircumScribedCircle(class Triangle _t){
   double norm_normal2on13 = sqrt(normal2on13x*normal2on13x+normal2on13y*normal2on13y+normal2on13z*normal2on13z);
   double norm2on13x = normal2on13x/norm_normal2on13;
   double norm2on13y = normal2on13y/norm_normal2on13;
-  double norm2on13z = normal2on13z/norm_normal2on13;
+  // double norm2on13z = normal2on13z/norm_normal2on13;
 
   double ax = v12midx; 
   double ay = v12midy; 
-  double az = v12midz; 
+  // double az = v12midz; 
   double bx = norm3on12x;
   double by = norm3on12y;
-  double bz = norm3on12z;
+  // double bz = norm3on12z;
   double cx = v13midx;
   double cy = v13midy;
-  double cz = v13midz;
+  // double cz = v13midz;
   double dx = norm2on13x;
   double dy = norm2on13y;
-  double dz = norm2on13z;
+  // double dz = norm2on13z;
   double ex = ax - cx;
   double ey = ay - cy;
-  double ez = az - cz;
-  double s = (-by*ex+bx*ey)/(-dx*by+dy*bx);
+  // double ez = az - cz;
+  // double s = (-by*ex+bx*ey)/(-dx*by+dy*bx);
   double t = (-dy*ex+dx*ey)/(-dx*by+dy*bx);
 
   // printf("s,t=%lf,%lf\n",s,t);
@@ -194,21 +213,9 @@ class Circle Delaunay2d::getCircumScribedCircle(class Triangle _t){
 
   printf("# v123.z = %lf %lf %lf ccz:%lf\n",v1.z,v2.z,v3.z,ccz);
 
-  // printf("set arrow from %lf,%lf,%lf to %lf,%lf,%lf\n",v12midx,v12midy,v12midz,ccx,ccy,ccz);
-  // printf("set arrow from %lf,%lf,%lf to %lf,%lf,%lf\n",v13midx,v13midy,v13midz,ccx,ccy,ccz);
-  // printf("set arrow from %lf,%lf,%lf to %lf,%lf,%lf ls 1 lw 1\n",v1.x,v1.y,v1.z,ccx,ccy,ccz);
-  // printf("set arrow from %lf,%lf,%lf to %lf,%lf,%lf ls 1 lw 1\n",v2.x,v2.y,v2.z,ccx,ccy,ccz);
-  // printf("set arrow from %lf,%lf,%lf to %lf,%lf,%lf ls 1 lw 1\n",v3.x,v3.y,v3.z,ccx,ccy,ccz);
-
   double di1 = sqrt((ccx-v1.x)*(ccx-v1.x)+(ccy-v1.y)*(ccy-v1.y)+(ccz-v1.z)*(ccz-v1.z));
-  double di2 = sqrt((ccx-v2.x)*(ccx-v2.x)+(ccy-v2.y)*(ccy-v2.y)+(ccz-v2.z)*(ccz-v2.z));
-  double di3 = sqrt((ccx-v3.x)*(ccx-v3.x)+(ccy-v3.y)*(ccy-v3.y)+(ccz-v3.z)*(ccz-v3.z));
-
-  // printf("set label \"%.2lf\" at %lf,%lf,%lf\n",di1,0.5*(v1.x+ccx),0.5*(v1.y+ccy),0.5*(v1.z+ccz));
-  // printf("set label \"%.2lf\" at %lf,%lf,%lf\n",di2,0.5*(v2.x+ccx),0.5*(v2.y+ccy),0.5*(v2.z+ccz));
-  // printf("set label \"%.2lf\" at %lf,%lf,%lf\n",di3,0.5*(v3.x+ccx),0.5*(v3.y+ccy),0.5*(v3.z+ccz));
-
-  // printf("# distances:%lf %lf %lf\n",di1,di2,di3);
+  // double di2 = sqrt((ccx-v2.x)*(ccx-v2.x)+(ccy-v2.y)*(ccy-v2.y)+(ccz-v2.z)*(ccz-v2.z)		    );
+  // double di3 = sqrt((ccx-v3.x)*(ccx-v3.x)+(ccy-v3.y)*(ccy-v3.y)+(ccz-v3.z)*(ccz-v3.z));
 
   class Circle c;
   c.x = ccx;
@@ -233,7 +240,7 @@ int Delaunay2d::containsTheVertex(class Triangle _t, class Vertex _newV){
   Vertex v2 = Vertices[_t.ind2];
   Vertex v3 = Vertices[_t.ind3];
 
-  double intx = (v1.x+v2.x+v3.x)/3.;
+  // double intx = (v1.x+v2.x+v3.x)/3.;
   double inty = (v1.y+v2.y+v3.y)/3.;
   double intz = (v1.z+v2.z+v3.z)/3.;
 
@@ -243,7 +250,7 @@ int Delaunay2d::containsTheVertex(class Triangle _t, class Vertex _newV){
   double a13x = v3.x - v1.x;
   double a13y = v3.y - v1.y;
   double a13z = v3.z - v1.z;
-  double a23x = v3.x - v2.x;
+  // double a23x = v3.x - v2.x;
   double a23y = v3.y - v2.y;
   double a23z = v3.z - v2.z;
 
@@ -257,7 +264,7 @@ int Delaunay2d::containsTheVertex(class Triangle _t, class Vertex _newV){
   nz = nz/norm;
 
   double projection = (_newV.x-v1.x)*nx + (_newV.y-v1.y)*ny + (_newV.z-v1.z)*nz;
-  double qprojx = _newV.x - projection*nx;
+  // double qprojx = _newV.x - projection*nx;
   double qprojy = _newV.y - projection*ny;
   double qprojz = _newV.z - projection*nz;
 
@@ -399,7 +406,7 @@ void Delaunay2d::outputGnuplot(){
   fprintf(fp,"fx(v,u) = cos(v)*cos(u);fy(v,u) = cos(v)*sin(u);fz(v)   = sin(v)\n");
   fprintf(fp,"splot \"vertex.dat\" pt 7 ps 2 lc 9, ");
   while(it_c!=Circles.end()){
-    if(it_c->ind1==2 || it_c->ind2==2 || it_c->ind3==2){
+    if(it_c->ind1==1 || it_c->ind2==1 || it_c->ind3==1){
       // fprintf(fp,"%lf*fx(v,u)+%lf,%lf*fy(v,u)+%lf,%lf*fz(v)+%lf ls 2 lw 1, ",it_c->r,it_c->x,it_c->r,it_c->y,it_c->r,it_c->z);
     }
     it_c++;
